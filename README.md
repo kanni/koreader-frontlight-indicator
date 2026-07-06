@@ -46,19 +46,20 @@ cp -r koreader-frontlight-indicator/frontlightindicator.koplugin /path/to/koread
 The `plugins/` location depends on your platform (e.g. `koreader/plugins/` in the app directory,
 or a `plugins/` folder under your KOReader home/data directory). Restart KOReader after installing.
 
-## Development
+## Showing the indicator in the status bar
 
-The plugin is two files under [`frontlightindicator.koplugin/`](frontlightindicator.koplugin):
-[`_meta.lua`](frontlightindicator.koplugin/_meta.lua) (metadata) and
-[`main.lua`](frontlightindicator.koplugin/main.lua) (a `WidgetContainer` subclass). It touches no
-KOReader core files — it uses `ReaderFooter:addAdditionalFooterContent` and
-`ReaderCoptListener:addAdditionalHeaderContent`.
+The indicator is drawn as the bottom status bar's **“External content”** item — the slot KOReader
+reserves for add-ons like this one. Turning on **Device ▸ Front light indicator ▸ Show in bottom
+status bar** enables that slot for you automatically, so normally there's nothing extra to do.
 
-A quick syntax check without a full KOReader build (requires [LuaJIT](https://luajit.org/)):
+If the symbol still doesn't appear — for example you'd previously switched External content off, or
+you've customized your status bar items — enable it manually:
 
-```sh
-luajit -e "assert(loadfile('frontlightindicator.koplugin/main.lua'))"
-```
+1. In the reader, open the menu and go to **Settings (⚙) ▸ Status bar ▸ Status bar items**.
+2. Make sure **External content** is checked.
+
+Also make sure the status bar itself is visible (tap along the bottom edge of the screen to toggle
+it). The indicator only shows while a document is open and the front light is on.
 
 ## License
 
