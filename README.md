@@ -4,6 +4,14 @@ Shows a small symbol in the [KOReader](https://github.com/koreader/koreader) sta
 the front light is on**, and **nothing at all when it is off** — an at-a-glance reminder that the
 light is on (and quietly draining your battery).
 
+## Screenshots
+
+<table><tr>
+<td align="center" valign="top"><img src="screenshots/progress-bar.png" width="240" alt="Indicator in the status bar"><br>Indicator (☼) in the status bar while reading</td>
+<td align="center" valign="top"><img src="screenshots/menu.png" width="240" alt="Front light indicator menu"><br>Device ▸ Front light indicator</td>
+<td align="center" valign="top"><img src="screenshots/symbol-picker.png" width="240" alt="Symbol picker"><br>Symbol picker</td>
+</tr></table>
+
 ## Features
 
 - **Bottom status bar (footer)** — adds the indicator via KOReader's supported external-content
@@ -24,12 +32,15 @@ plugin disables itself.
 
 ## Installation
 
-KOReader loads plugins from folders named `*.koplugin`. Clone (or download) this repo **into a
-folder called `frontlightindicator.koplugin`** inside your KOReader `plugins/` directory:
+The actual plugin is the `frontlightindicator.koplugin/` folder in this repo (the repo root only
+holds docs and screenshots). KOReader loads plugins from folders named `*.koplugin`, so copy — or
+symlink — that subfolder into your KOReader `plugins/` directory:
 
 ```sh
-cd /path/to/koreader/plugins
-git clone https://github.com/kanni/koreader-frontlight-indicator.git frontlightindicator.koplugin
+git clone https://github.com/kanni/koreader-frontlight-indicator.git
+cp -r koreader-frontlight-indicator/frontlightindicator.koplugin /path/to/koreader/plugins/
+# …or symlink it so `git pull` keeps it up to date:
+# ln -s "$(pwd)/koreader-frontlight-indicator/frontlightindicator.koplugin" /path/to/koreader/plugins/
 ```
 
 The `plugins/` location depends on your platform (e.g. `koreader/plugins/` in the app directory,
@@ -37,14 +48,16 @@ or a `plugins/` folder under your KOReader home/data directory). Restart KOReade
 
 ## Development
 
-The plugin is two files: [`_meta.lua`](_meta.lua) (metadata) and [`main.lua`](main.lua) (a
-`WidgetContainer` subclass). It touches no KOReader core files — it uses
-`ReaderFooter:addAdditionalFooterContent` and `ReaderCoptListener:addAdditionalHeaderContent`.
+The plugin is two files under [`frontlightindicator.koplugin/`](frontlightindicator.koplugin):
+[`_meta.lua`](frontlightindicator.koplugin/_meta.lua) (metadata) and
+[`main.lua`](frontlightindicator.koplugin/main.lua) (a `WidgetContainer` subclass). It touches no
+KOReader core files — it uses `ReaderFooter:addAdditionalFooterContent` and
+`ReaderCoptListener:addAdditionalHeaderContent`.
 
 A quick syntax check without a full KOReader build (requires [LuaJIT](https://luajit.org/)):
 
 ```sh
-luajit -e "assert(loadfile('main.lua'))"
+luajit -e "assert(loadfile('frontlightindicator.koplugin/main.lua'))"
 ```
 
 ## License
